@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Mentrix EdTech - Welcoming Teal Theme */
+    --background: 176 30% 97%;
+    --foreground: 180 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 180 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 25% 15%;
+
+    /* Primary - Pleasant Teal (Calm & Trustworthy) */
+    --primary: 174 58% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft Sage */
+    --secondary: 168 20% 94%;
+    --secondary-foreground: 180 25% 15%;
+
+    /* Muted - Light Seafoam */
+    --muted: 168 20% 94%;
+    --muted-foreground: 175 15% 45%;
+
+    /* Accent - Warm Coral (Friendly contrast) */
+    --accent: 16 80% 62%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Success - Soft Green */
+    --success: 152 55% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Gentle Amber */
+    --warning: 40 85% 55%;
+    --warning-foreground: 40 60% 15%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 172 20% 88%;
+    --input: 172 20% 88%;
+    --ring: 174 58% 42%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar - Clean Teal Tinted */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 180 25% 15%;
+    --sidebar-primary: 174 58% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 168 25% 94%;
+    --sidebar-accent-foreground: 180 25% 15%;
+    --sidebar-border: 172 20% 88%;
+    --sidebar-ring: 174 58% 42%;
+
+    /* Custom Mentrix Tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(174 58% 42%) 0%, hsl(188 55% 48%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(16 80% 62%) 0%, hsl(28 85% 58%) 100%);
+    --shadow-soft: 0 4px 20px -4px hsl(174 58% 42% / 0.18);
+    --shadow-elevated: 0 12px 40px -8px hsl(180 25% 15% / 0.10);
+  }
+
+  .dark {
+    --background: 180 25% 8%;
+    --foreground: 168 20% 95%;
+
+    --card: 180 22% 12%;
+    --card-foreground: 168 20% 95%;
+
+    --popover: 180 22% 12%;
+    --popover-foreground: 168 20% 95%;
+
+    --primary: 174 55% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 178 20% 18%;
+    --secondary-foreground: 168 20% 95%;
+
+    --muted: 178 20% 18%;
+    --muted-foreground: 172 15% 60%;
+
+    --accent: 16 75% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 152 55% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 40 85% 55%;
+    --warning-foreground: 40 60% 15%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 168 20% 95%;
+
+    --border: 178 20% 20%;
+    --input: 178 20% 20%;
+    --ring: 174 55% 50%;
+
+    --sidebar-background: 180 22% 10%;
+    --sidebar-foreground: 168 20% 95%;
+    --sidebar-primary: 174 55% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 178 20% 18%;
+    --sidebar-accent-foreground: 168 20% 95%;
+    --sidebar-border: 178 20% 20%;
+    --sidebar-ring: 174 55% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
