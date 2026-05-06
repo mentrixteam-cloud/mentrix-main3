@@ -1,0 +1,42 @@
+-- Adds rate-limiting and brute-force tracking helpers
+
+CREATE TABLE IF NOT EXISTS public.rate_limits (
+  key TEXT PRIMARY KEY,
+  count INTEGER NOT NULL DEFAULT 0,
+  reset_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE OR REPLACE FUNCTION public.update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS update_rate_limits_updated_at ON public.rate_limits;
+CREATE TRIGGER update_rate_limits_updated_at
+BEFORE UPDATE ON public.rate_limits
+FOR EACH ROW
+EXECUTE FUNCTION public.update_updated_at_column();
+
+-- Table for login / brute-force attempts (per identifier e.g. email or ip)
+CREATE TABLE IF NOT EXISTS public.login_attempts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  identifier TEXT NOT NULL,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  last_attempt_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  blocked_until TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_login_attempts_identifier ON public.login_attempts (identifier);
+
+DROP TRIGGER IF EXISTS update_login_attempts_updated_at ON public.login_attempts;
+CREATE TRIGGER update_login_attempts_updated_at
+BEFORE UPDATE ON public.login_attempts
+FOR EACH ROW
+EXECUTE FUNCTION public.update_updated_at_column();
